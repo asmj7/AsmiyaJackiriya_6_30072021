@@ -19,7 +19,7 @@ exports.signup = (req, res, next) => {
 
 exports.login = (req, res, next) => {
     User.findOne({ email: req.body.email })
-        .then(user => { 
+        .then(user => {
             if (!user) {
                 return res.status(401).json({ message: 'Utilisateur non trouvé !' });
             }
@@ -30,9 +30,9 @@ exports.login = (req, res, next) => {
                     }
                     const token = jwt.sign(
                         { userId: user._id },
-                        'RANDOM_TOKEN_SECRET',
-                        { expiresIn: '24h' }
-                    );
+                        "RANDOM_TOKEN_SECRET",
+                        { expiresIn: "24h" }
+                    )
                     res.status(200).json({
                         userId: user._id,
                         token
