@@ -52,7 +52,7 @@ exports.getAllSauces = (req, res, next) => {
 exports.likeDislikeSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
         .then(sauce => {
-            let like = (req.body.like);
+            const like = req.body.like;
             let opinions = {};
             switch (like) {
                 case -1:
@@ -73,7 +73,7 @@ exports.likeDislikeSauce = (req, res, next) => {
                         if (req.body.userId === userId) {
                             opinions = {
                                 $pull: { userLiked: userId },
-                                $inc: { likes: 1 }
+                                $inc: { likes: -1 }
                             };
                         };
                     break;
@@ -86,7 +86,7 @@ exports.likeDislikeSauce = (req, res, next) => {
             };
             Sauce.updateOne({ _id: req.params.id }, opinions)
                 .then(() => res.status(200).json({ message: "La sauce a été liké" }))
-                .catch(error => res.status(400).json({ error }))
+                .catch(error => res.status(500).json({ error }))
         })
         .catch(error => res.status(500).json({ error }));
 };
