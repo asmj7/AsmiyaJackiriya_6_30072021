@@ -9,6 +9,7 @@ const app = express();
 const sauceRoutes = require('./routes/sauce');
 const userRoutes = require('./routes/user');
 
+// Connexion à mongoDB avec l'adresse SRV retournée par celle-ci
 mongoose.connect('mongodb+srv://Asmiya:projet6OC@cluster0.22vux.mongodb.net/myFirstDatabase?retryWrites=true&w=majority',
   {
     useNewUrlParser: true,
@@ -17,6 +18,7 @@ mongoose.connect('mongodb+srv://Asmiya:projet6OC@cluster0.22vux.mongodb.net/myFi
   .then(() => console.log('Connexion à MongoDB réussie !'))
   .catch(() => console.log('Connexion à MongoDB échouée !'));
 
+// Gestion des erreurs CORS (accès interdit aux autres serveurs)
 app.use(cors());
 app.use((req, res, next) => {
   res.setHeader('Access-Control-Allow-Origin', '*');

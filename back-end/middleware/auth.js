@@ -1,5 +1,7 @@
 const jwt = require('jsonwebtoken');
 
+// Vérification du Token de l'utilisateur
+// On regarde si ça correspond au Id de l'utilisateur dans req.body.userId
 module.exports = (req, res, next) => {
     try {
         const token = req.headers.authorization.split(' ')[1];
