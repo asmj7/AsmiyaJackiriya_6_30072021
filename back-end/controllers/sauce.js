@@ -63,29 +63,29 @@ exports.likeDislikeSauce = (req, res, next) => {
             switch (like) {
                 case -1:  //  Si l'utilisateur dislike la sauce 
                     opinions = {
-                        $push: { userDisliked: req.body.userId },
+                        $push: { usersDisliked: req.body.userId },
                         $inc: { dislikes: 1 }
                     }
                     break;
                 case 0: // Si l'utilisateur enlève son like / dislike
-                    for (let userId of sauce.userDisliked)
+                    for (let userId of sauce.usersDisliked)
                         if (req.body.userId === userId) {
                             opinions = {
-                                $pull: { userDisliked: userId },
+                                $pull: { usersDisliked: userId },
                                 $inc: { dislikes: -1 }
                             };
                         };
-                    for (let userId of sauce.userLiked)
+                    for (let userId of sauce.usersLiked)
                         if (req.body.userId === userId) {
                             opinions = {
-                                $pull: { userLiked: userId },
+                                $pull: { usersLiked: userId },
                                 $inc: { likes: -1 }
                             };
                         };
                     break;
                 case 1:  // Si l'utilisateur like la sauce
                     opinions = {
-                        $push: { userLiked: req.body.userId },
+                        $push: { usersLiked: req.body.userId },
                         $inc: { likes: 1 }
                     };
                     break;
